@@ -71,6 +71,16 @@ function SiteNav({ light = true }) {
   );
 }
 
+function PurposeTickerBar() {
+  return (
+    <div style={{height: 36, background: "var(--success-500)", color: "white", display: "flex", alignItems: "center", overflow: "hidden", fontSize: 13, fontWeight: 700}}>
+      <div style={{whiteSpace: "nowrap", animation: "ticker-slide 22s linear infinite"}}>
+        Comprar com quem compartilha seu proposito · fortalecer familias · impulsionar negocios de fe · conectar igrejas, empresas e causas · Comprar com quem compartilha seu proposito
+      </div>
+    </div>
+  );
+}
+
 /* ============================================================
    1. MARKETPLACE HOME (igod.com.br)
    ============================================================ */
@@ -78,6 +88,7 @@ function DesktopHome() {
   return (
     <IGBrowser url="igod.com.br">
       <SiteNav light />
+      <PurposeTickerBar />
 
       {/* Hero */}
       <div style={{padding: "56px 40px 48px", background: "var(--plum-800)", color: "var(--sand-50)", position: "relative", overflow: "hidden"}}>
@@ -94,6 +105,14 @@ function DesktopHome() {
             <div style={{display: "flex", gap: 12, marginTop: 28}}>
               <button className="btn btn--lg btn--primary">Explorar marketplace <i className="ph-bold ph-arrow-right"></i></button>
               <button className="btn btn--lg" style={{background: "rgba(255,252,246,.08)", color: "var(--sand-50)", border: "1px solid rgba(255,252,246,.18)"}}>Sou empresário</button>
+            </div>
+            <div style={{display: "flex", gap: 10, marginTop: 20, flexWrap: "wrap"}}>
+              {["Todas as igrejas", "Minha igreja", "Batista", "Presbiteriana"].map((church, i) => (
+                <span key={church} style={{height: 32, padding: "0 12px", borderRadius: 999, background: i === 1 ? "var(--success-500)" : "rgba(255,252,246,.08)", border: "1px solid rgba(255,252,246,.16)", color: "var(--sand-50)", display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontWeight: 700}}>
+                  {i === 1 && <i className="ph-fill ph-check-circle"></i>}
+                  {church}
+                </span>
+              ))}
             </div>
             <div style={{display: "flex", gap: 32, marginTop: 36, fontSize: 13}}>
               {[["2,4 mil", "empresas"],["18 mil", "produtos"],["27", "estados"]].map(([v,l]) => (
@@ -119,6 +138,29 @@ function DesktopHome() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Louvor + versiculo */}
+      <div style={{padding: "28px 40px 8px", maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16}}>
+        <div style={{background: "#121212", color: "white", borderRadius: 16, padding: 18, display: "flex", alignItems: "center", gap: 14, boxShadow: "var(--shadow-md)"}}>
+          <div style={{width: 58, height: 58, borderRadius: 12, background: "linear-gradient(135deg, #1877F2, #1DB954 52%, #2A1B2E)", display: "grid", placeItems: "center", flexShrink: 0}}>
+            <i className="ph-fill ph-spotify-logo" style={{fontSize: 30}}></i>
+          </div>
+          <div style={{flex: 1, minWidth: 0}}>
+            <div style={{fontSize: 11, letterSpacing: ".12em", textTransform: "uppercase", color: "rgba(255,255,255,.56)", fontWeight: 700}}>Louvor no Spotify</div>
+            <div style={{fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, marginTop: 2}}>Manha de fe · playlist iGod</div>
+            <div style={{fontSize: 12, color: "rgba(255,255,255,.62)", marginTop: 2}}>32 louvores para comecar o dia</div>
+          </div>
+          <button style={{width: 40, height: 40, borderRadius: "50%", border: "none", background: "#1DB954", color: "#0B0B0B", display: "grid", placeItems: "center"}}><i className="ph-fill ph-play"></i></button>
+        </div>
+
+        <div style={{background: "var(--bg-elevated)", border: "1px solid var(--hairline)", borderRadius: 16, padding: 18}}>
+          <div style={{display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center", marginBottom: 8}}>
+            <div style={{display: "flex", alignItems: "center", gap: 8, fontSize: 13, fontWeight: 700, color: "var(--plum-800)"}}><i className="ph ph-book-open-text"></i>Versiculo do dia</div>
+            <span className="badge badge--active">Em estudo</span>
+          </div>
+          <p style={{fontSize: 14, color: "var(--neutral-700)", lineHeight: 1.55}}>"Consagre ao Senhor tudo o que voce faz, e os seus planos serao bem-sucedidos." <strong>Proverbios 16:3</strong></p>
         </div>
       </div>
 

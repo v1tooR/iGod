@@ -156,6 +156,157 @@
 }
 .h-scroll::-webkit-scrollbar { display: none; }
 
+/* Purpose ticker */
+.purpose-ticker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 16px 12px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: var(--success-50);
+  color: var(--success-700);
+  border: 1px solid rgba(24,119,242,.16);
+  font-size: 12px;
+  font-weight: 600;
+  overflow: hidden;
+}
+.purpose-ticker__icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  background: var(--success-500);
+  color: white;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.purpose-ticker__track {
+  white-space: nowrap;
+  animation: ticker-slide 14s linear infinite;
+}
+@keyframes ticker-slide {
+  from { transform: translateX(10%); }
+  to { transform: translateX(-72%); }
+}
+
+.church-filter {
+  margin: 0 16px 12px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+.church-filter::-webkit-scrollbar { display: none; }
+.church-filter__chip {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--hairline);
+  background: var(--bg-elevated);
+  color: var(--neutral-700);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.church-filter__chip.is-active {
+  background: var(--plum-800);
+  color: var(--sand-50);
+  border-color: var(--plum-800);
+}
+
+.worship-card {
+  margin: 8px 16px 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #121212;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-md);
+}
+.worship-card__art {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1877F2, #1DB954 52%, #2A1B2E);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.worship-card__body { flex: 1; min-width: 0; }
+.worship-card__label {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.56);
+  font-weight: 700;
+}
+.worship-card__title {
+  margin-top: 3px;
+  font-size: 14px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.worship-card__sub {
+  margin-top: 1px;
+  font-size: 11px;
+  color: rgba(255,255,255,.62);
+}
+.worship-card__play {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #1DB954;
+  color: #0B0B0B;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.verse-card {
+  margin: 8px 16px 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--hairline);
+}
+.verse-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.verse-card__title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--plum-800);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.verse-card__status {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--success-700);
+  background: var(--success-50);
+  border-radius: 999px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+.verse-card__text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--neutral-700);
+}
+
 /* Mobile product grid */
 .m-grid {
   display: grid;

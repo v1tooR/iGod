@@ -78,6 +78,20 @@ function PhoneHome() {
           </button>
         </div>
 
+        <div className="purpose-ticker">
+          <div className="purpose-ticker__icon"><i className="ph-fill ph-sparkle" style={{fontSize: 14}}></i></div>
+          <div className="purpose-ticker__track">Comprar com quem compartilha seu proposito · fortalecer familias · impulsionar negocios de fe · servir a comunidade</div>
+        </div>
+
+        <div className="church-filter">
+          {["Todas as igrejas", "Minha igreja", "Batista", "Presbiteriana", "Comunidade"].map((church, i) => (
+            <span key={church} className={`church-filter__chip ${i === 1 ? "is-active" : ""}`}>
+              {i === 1 && <i className="ph-fill ph-check-circle"></i>}
+              {church}
+            </span>
+          ))}
+        </div>
+
         {/* Categories horizontal */}
         <div className="h-scroll" style={{paddingBottom: 4}}>
           {CATEGORIES.map(c => (
@@ -88,6 +102,26 @@ function PhoneHome() {
               <div style={{fontSize: 11, fontWeight: 500, color:"var(--neutral-700)", textAlign:"center"}}>{c.name}</div>
             </div>
           ))}
+        </div>
+
+        <div className="worship-card">
+          <div className="worship-card__art">
+            <i className="ph-fill ph-spotify-logo" style={{fontSize: 28}}></i>
+          </div>
+          <div className="worship-card__body">
+            <div className="worship-card__label">Louvor no Spotify</div>
+            <div className="worship-card__title">Manha de fe · playlist iGod</div>
+            <div className="worship-card__sub">32 louvores para comecar o dia</div>
+          </div>
+          <button className="worship-card__play"><i className="ph-fill ph-play" style={{fontSize: 16}}></i></button>
+        </div>
+
+        <div className="verse-card">
+          <div className="verse-card__head">
+            <div className="verse-card__title"><i className="ph ph-book-open-text"></i>Versiculo do dia</div>
+            <span className="verse-card__status">Em estudo</span>
+          </div>
+          <div className="verse-card__text">"Consagre ao Senhor tudo o que voce faz, e os seus planos serao bem-sucedidos." <strong>Proverbios 16:3</strong></div>
         </div>
 
         {/* Hero */}
@@ -158,9 +192,10 @@ function PhoneListing() {
       <div className="phone__body">
         {/* Filters chips */}
         <div className="h-scroll" style={{padding:"4px 16px 12px"}}>
-          {["Filtros", ...CATEGORIES.slice(0, 6).map(c=>c.name)].map((n, i) => (
+          {["Filtros", "Igreja: Minha igreja", ...CATEGORIES.slice(0, 6).map(c=>c.name)].map((n, i) => (
             <span key={n} className={`chip ${active === n ? "is-active" : ""}`} onClick={()=>setActive(n)}>
               {i === 0 && <i className="ph-bold ph-sliders-horizontal"></i>}
+              {i === 1 && <i className="ph ph-church"></i>}
               {n}
               {i === 0 && <span className="badge--notif badge" style={{minWidth: 16, height: 16, fontSize: 9}}>2</span>}
             </span>

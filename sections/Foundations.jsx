@@ -77,7 +77,7 @@ function ColorsSection() {
     { step: 500, hex: "#6D6760" },{ step: 600, hex: "#4D4944" },{ step: 700, hex: "#36332F" },{ step: 800, hex: "#211F1D" },{ step: 900, hex: "#100F0E" },
   ];
   const semantic = [
-    { name: "Success", token: "--success-500", hex: "#2D7A4F", bg: "#E8F3EC" },
+    { name: "Success", token: "--success-500", hex: "#1877F2", bg: "#E7F0FF" },
     { name: "Warning", token: "--warning-500", hex: "#C88A1F", bg: "#FBF1DE" },
     { name: "Error",   token: "--error-500",   hex: "#B83A3A", bg: "#F8E3E3" },
     { name: "Info",    token: "--info-500",    hex: "#2C5F87", bg: "#E3ECF3" },

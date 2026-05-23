@@ -188,7 +188,7 @@ function TokensSection() {
   --neutral-900: #100F0E;
 
   /* Semantic */
-  --success-500: #2D7A4F;  --warning-500: #C88A1F;
+  --success-500: #1877F2;  --warning-500: #C88A1F;
   --error-500: #B83A3A;    --info-500: #2C5F87;
 
   /* Surface aliases */
