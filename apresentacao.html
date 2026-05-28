@@ -617,6 +617,23 @@ a { color: inherit; text-decoration: none; }
   pointer-events: none;
   animation: rays-pulse 6s ease-in-out infinite;
 }
+/* Scroll cue — visible mobile only */
+#s5::after {
+  content: '';
+  position: absolute;
+  bottom: 38px; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 52px;
+  background: linear-gradient(to bottom, rgba(232,113,42,.65), transparent);
+  pointer-events: none;
+  animation: s5-scroll-drop 2.6s ease-in-out infinite;
+}
+@media (min-width: 701px) { #s5::after { display: none; } }
+@keyframes s5-scroll-drop {
+  0%   { opacity: 0; transform: translateX(-50%) scaleY(.5); transform-origin: top; }
+  35%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) scaleY(1); transform-origin: top; }
+}
 .q-main {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 6vw, 5.5rem);
@@ -1744,10 +1761,27 @@ a { color: inherit; text-decoration: none; }
 /* Mobile: desativa sticky e animações scroll-driven */
 @media (max-width: 700px) {
   #s4  { min-height: auto; padding: clamp(60px,10vh,120px) clamp(20px,5vw,40px); }
-  #s11 { min-height: 100svh; padding: clamp(60px,10vh,120px) clamp(20px,5vw,40px); }
+  #s11 { min-height: auto; padding: 88px clamp(20px,5vw,40px) 96px; }
   #s4 > .inner { position: relative; top: auto; height: auto;
                  padding: 0; flex-direction: column; justify-content: flex-start; gap: 24px; }
   #s11 > .inner { position: relative; top: auto; height: auto; padding: 0; }
+  #s11::before {
+    width: 360px;
+    height: 360px;
+    filter: blur(52px);
+  }
+  #s11 .s11-sub {
+    max-width: 320px;
+    margin-bottom: 26px;
+    font-size: .98rem;
+    line-height: 1.45;
+  }
+  #s11 .s11-main {
+    max-width: 340px;
+    font-size: clamp(2.25rem, 11vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
   .s4-stage { position: static; flex: none; overflow: visible; display: flex; flex-direction: column; gap: 20px; }
   .s4-card  { position: static; opacity: 1 !important; transform: none !important; transition: none !important; }
   .s4-num   { font-size: 3rem; }
@@ -1760,6 +1794,19 @@ a { color: inherit; text-decoration: none; }
     transform: none !important;
     transition: none !important;
   }
+
+  /* S5 — headline scale + rhythm on mobile */
+  .q-main {
+    font-size: clamp(3rem, 12vw, 5.5rem);
+    letter-spacing: -0.04em;
+    margin-top: 12px;
+  }
+  .q-sub {
+    font-size: 1rem;
+    margin-top: 28px;
+    max-width: 320px;
+  }
+  .q-sub br { display: none; }
 }
 
 /* ─────────────────────────────────────────────────────
@@ -1776,8 +1823,8 @@ a { color: inherit; text-decoration: none; }
   .s7-center { width: 68px; height: 68px; font-size: .68rem; }
 
   .values-grid, .env-grid { grid-template-columns: 1fr 1fr; }
-  .flow { flex-direction: column; gap: 8px; }
-  .flow-arr { transform: rotate(90deg); align-self: center; padding: 4px 0; }
+  .flow { grid-template-columns: 1fr; gap: 10px; }
+  .flow-arr { transform: rotate(90deg); justify-self: center; padding: 2px 0; }
 }
 @media (max-width: 900px) {
   .steps-list { grid-template-columns: 1fr; }
@@ -1786,6 +1833,112 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 540px) {
   .values-grid, .env-grid { grid-template-columns: 1fr; }
   .vision-list { grid-template-columns: 1fr; }
+}
+
+/* ── S7 wheel — small mobile scale-down ─────────────── */
+@media (max-width: 500px) {
+  /* scale the entire stage (nodes + SVG + center) proportionally
+     so the wheel fits within the viewport with comfortable side margins.
+     CSS scale() doesn't affect layout box, so negative margin compensates. */
+  .s7-stage {
+    scale: 0.85;
+    /* (320px × (1 - 0.85)) / 2 = 24px layout compensation */
+    margin: -24px auto;
+  }
+  /* description panel gap adjust after stage shrinks */
+  .s7-desc { margin-top: 48px; }
+}
+
+@media (max-width: 700px) {
+  #s12 {
+    min-height: auto;
+    padding: 72px 20px 80px;
+    overflow: hidden;
+  }
+  #s12 .inner {
+    max-width: 420px;
+  }
+  #s12 .eyebrow {
+    display: block;
+    margin-bottom: 20px;
+  }
+  #s12 .d-md {
+    font-size: clamp(2.1rem, 9vw, 2.65rem);
+    line-height: 1.08;
+    max-width: 340px !important;
+  }
+  #s12 .d-md br {
+    display: none;
+  }
+  .flow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 34px 0 30px;
+  }
+  .flow-node {
+    min-height: 0;
+    border-radius: 16px;
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    column-gap: 14px;
+    align-items: center;
+    background: rgba(255,252,246,.68);
+    overflow: hidden;
+  }
+  .flow-node.accent-node {
+    background: rgba(232,113,42,.08);
+  }
+  .fn-step {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    margin: 0;
+    font-size: 1.35rem;
+    color: rgba(33,31,29,.1);
+  }
+  .accent-node .fn-step {
+    color: rgba(232,113,42,.32);
+  }
+  .fn-icon {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    margin: 0;
+    background: rgba(255,252,246,.78);
+    box-shadow: none;
+    grid-row: span 2;
+  }
+  .flow-node h4 {
+    font-size: 1.08rem;
+    line-height: 1.14;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .flow-node p {
+    font-size: .92rem;
+    line-height: 1.45;
+    grid-column: 2;
+  }
+  .flow-arr {
+    height: 18px;
+    transform: none;
+    justify-self: center;
+    margin: -4px 0;
+    opacity: .52 !important;
+  }
+  .flow-arr svg {
+    transform: rotate(90deg);
+    transform-origin: center;
+  }
+  #s12 .body-md {
+    font-size: .98rem;
+    line-height: 1.65;
+    max-width: 350px !important;
+  }
 }
 
 </style>
@@ -2219,7 +2372,7 @@ a { color: inherit; text-decoration: none; }
   <div class="inner">
     <span class="eyebrow on-light anim">Porque acreditamos nisso</span>
     <h2 class="d-md anim d1" style="color:var(--neutral-900);max-width:580px;">
-      O impacto se expande<br>em ondas.
+      O impacto se expande<br> em ondas.
     </h2>
     <div class="flow">
 
