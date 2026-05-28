@@ -1284,20 +1284,161 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ─────────────────────────────────────────────────────
-   S14 — LOGO REVEAL
+   S14 — LOGO REVEAL (cinematic)
 ───────────────────────────────────────────────────── */
 #s14 { text-align: center; }
 #s14::before {
   content: '';
   position: absolute; inset: -50%;
-  background: radial-gradient(ellipse 50% 40% at 50% 55%, rgba(201,90,27,.07) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 50% at 50% 52%, rgba(201,90,27,.09) 0%, transparent 70%);
+  pointer-events: none;
 }
+
+/* Frame — inline-block centers on page, text-align: left aligns children */
+.s14-frame {
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto;
+}
+
+/* Wrap: relative container for all animated layers */
+.s14-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 14px 0 0;
+  padding: 32px;
+}
+
+/* Bigger logo specifically for S14 */
+#s14 .s14-logo-img {
+  height: clamp(100px, 20vw, 200px) !important;
+}
+
+/* Spark — tiny bright point, first thing to appear */
+.s14-spark {
+  position: absolute;
+  width: 8px; height: 8px;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  border-radius: 50%;
+  background: #fff8f0;
+  box-shadow: 0 0 18px 8px rgba(255,220,160,.9), 0 0 60px 30px rgba(232,113,42,.6);
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Bloom — warm radial burst that expands then fades */
+.s14-bloom {
+  position: absolute;
+  width: 380px; height: 380px;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255,242,224,.85) 0%,
+    rgba(232,113,42,.55)  20%,
+    rgba(232,113,42,.08)  52%,
+    transparent 70%
+  );
+  filter: blur(24px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ripple rings — expand outward */
+.s14-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(232,113,42,.7);
+  transform: translate(-50%,-50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.s14-ring.r1 { width:  90px; height:  90px; }
+.s14-ring.r2 { width: 180px; height: 180px; border-color: rgba(232,113,42,.45); }
+.s14-ring.r3 { width: 300px; height: 300px; border-color: rgba(232,113,42,.22); }
+
+/* Logo — springs in through the light */
+.s14-logo-img {
+  position: relative;
+  z-index: 3;
+  margin: 0 auto;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+/* Text elements — start hidden */
+.s14-eyebrow { display: block; opacity: 0; transform: translateY(-12px); }
+.s14-tagline  { opacity: 0; transform: translateY(18px); }
+
+/* ── Revealed state — triggers CSS animations ───── */
+#s14.revealed .s14-spark {
+  animation: s14Spark  .55s ease-out forwards;
+}
+#s14.revealed .s14-bloom {
+  animation: s14Bloom  2.4s cubic-bezier(.18,.8,.18,1) .08s forwards;
+}
+#s14.revealed .s14-ring.r1 {
+  animation: s14Ring   1.8s cubic-bezier(.15,.85,.15,1) .22s forwards;
+}
+#s14.revealed .s14-ring.r2 {
+  animation: s14Ring   2.3s cubic-bezier(.15,.85,.15,1) .38s forwards;
+}
+#s14.revealed .s14-ring.r3 {
+  animation: s14Ring   2.9s cubic-bezier(.15,.85,.15,1) .56s forwards;
+}
+#s14.revealed .s14-logo-img {
+  animation: s14Logo   1.15s cubic-bezier(.34,1.5,.64,1) .12s forwards;
+}
+#s14.revealed .s14-eyebrow {
+  animation: s14TextDown .9s var(--ease-out) .88s forwards;
+}
+#s14.revealed .s14-tagline {
+  animation: s14TextUp   .9s var(--ease-out) 1.12s forwards;
+}
+
+@keyframes s14Spark {
+  0%  { opacity: 0; transform: translate(-50%,-50%) scale(0); }
+  45% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  100%{ opacity: 0; transform: translate(-50%,-50%) scale(2.5); }
+}
+@keyframes s14Bloom {
+  0%  { opacity: 0; transform: translate(-50%,-50%) scale(0); }
+  14% { opacity: 1; transform: translate(-50%,-50%) scale(.65); }
+  52% { opacity: .75; transform: translate(-50%,-50%) scale(1.1); }
+  100%{ opacity: 0; transform: translate(-50%,-50%) scale(2.2); }
+}
+@keyframes s14Ring {
+  0%  { opacity: 0;  transform: translate(-50%,-50%) scale(0); }
+  10% { opacity: .9; }
+  100%{ opacity: 0;  transform: translate(-50%,-50%) scale(2.4); }
+}
+@keyframes s14Logo {
+  0%  { opacity: 0; transform: scale(.5); }
+  55% { opacity: 1; transform: scale(1.08); }
+  100%{ opacity: 1; transform: scale(1); }
+}
+@keyframes s14TextDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes s14TextUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
 .logo-tagline {
   font-size: clamp(.95rem, 1.6vw, 1.15rem);
   color: rgba(255,252,246,.55);
   max-width: 460px;
-  margin: 28px auto 0;
-  line-height: 1.65;
+  margin: 0 auto;
+  line-height: 1.72;
 }
 
 /* ─────────────────────────────────────────────────────
@@ -2149,7 +2290,7 @@ a { color: inherit; text-decoration: none; }
           <span class="v-num">05</span>
         </div>
         <h4>Comunhão</h4>
-        <p class="v-desc">Uma rede viva de fé, negócios e parceria no Evangelho.</p>
+        <p class="v-desc">Uma rede viva de fé, negócios e parceria com princípios do Evangelho.</p>
       </div>
       <div class="value-card">
         <div class="v-card-top">
@@ -2159,7 +2300,7 @@ a { color: inherit; text-decoration: none; }
           <span class="v-num">06</span>
         </div>
         <h4>Legado</h4>
-        <p class="v-desc">Construir algo que dure além de você e honre a Deus.</p>
+        <p class="v-desc">Construir algo que dure além de nós</p>
       </div>
     </div>
   </div>
@@ -2432,76 +2573,28 @@ a { color: inherit; text-decoration: none; }
 </section>
 
 <!-- ══════════════════════════════════════════════════
-     S13 — O POSICIONAMENTO
-═══════════════════════════════════════════════════ -->
-<section id="s13" class="section t-dark" data-section="12">
-  <div class="inner">
-    <div class="s13-left">
-      <div>
-        <span class="eyebrow anim" style="display:block;margin-bottom:20px;">O posicionamento do iGod</span>
-        <p class="pos-body anim d1">
-          O iGod não é &ldquo;para todos&rdquo;.<br>
-          É <strong style="color:var(--sand-50);font-weight:700;">assumidamente cristão</strong>, fundamentado em princípios bíblicos e construído para fortalecer o povo de Deus.
-        </p>
-        <p class="pos-lead anim d2">E essa é a nossa maior força:</p>
-        <h2 class="jesus-stmt anim d3">Jesus<br>Cristo.</h2>
-      </div>
-    </div>
-
-    <div class="s13-right anim-left">
-      <img src="assets/apresentacao3.webp" alt="Empreendedor cristão" loading="lazy">
-      <div class="s13-badge">
-        <div class="s13-badge-icon">
-          <svg width="15" height="15" fill="none" stroke="var(--ember-400)" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <p>Identidade definida gera <strong style="color:var(--sand-50);">comunidade forte</strong> e <strong style="color:var(--sand-50);">propósito compartilhado</strong>. Ser específico é diferencial.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
      S14 — LOGO REVEAL
 ═══════════════════════════════════════════════════ -->
 <section id="s14" class="section t-deep" data-section="13">
   <div class="inner" style="text-align:center;">
-    <span class="eyebrow anim">E é aqui que tudo começa</span>
-    <div class="logo-reveal-wrap anim-scale" style="margin:44px auto;">
-      <img src="assets/igod-logo.png" alt="iGod" class="logo-img logo-img--reveal" style="margin:0 auto;">
+    <div class="s14-frame">
+      <span class="eyebrow s14-eyebrow">E é aqui que tudo começa</span>
+      <div class="s14-wrap">
+        <div class="s14-spark"></div>
+        <div class="s14-bloom"></div>
+        <div class="s14-ring r1"></div>
+        <div class="s14-ring r2"></div>
+        <div class="s14-ring r3"></div>
+        <img src="assets/igod-logo.png" alt="iGod" class="logo-img logo-img--reveal s14-logo-img">
+      </div>
     </div>
-    <p class="logo-tagline anim d1">
+    <p class="logo-tagline s14-tagline" style="margin-top:36px;">
       O ecossistema cristão de negócios.<br>
       <span style="opacity:.55">Tecnologia com alma. Marketplace com propósito.</span>
     </p>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════
-     S15 — O QUE É O iGOD
-═══════════════════════════════════════════════════ -->
-<section id="s15" class="section t-dark" data-section="14">
-  <div class="inner">
-    <span class="eyebrow anim">O que é o iGod?</span>
-    <h2 class="d-lg anim d1" style="max-width:680px;margin-bottom:14px;">
-      Uma ferramenta para<br>fortalecer o Reino
-    </h2>
-    <p class="body-lg anim d2" style="max-width:600px;opacity:.72;margin-bottom:0;">
-      Através da unidade do corpo de Cristo, onde um apoia o outro.
-    </p>
-    <div class="two-cards">
-      <div class="big-card anim d3">
-        <span class="card-label">Módulo 01</span>
-        <h3>Hub de Negócios Cristão</h3>
-        <p>Formação, crescimento, cuidado e conexão para empreendedores cristãos. Um espaço de desenvolvimento integral — empresarial, emocional e espiritual.</p>
-      </div>
-      <div class="big-card anim d4">
-        <span class="card-label">Módulo 02</span>
-        <h3>Marketplace Cristão</h3>
-        <p>O shopping online dos cristãos. Um ambiente onde consumidores e vendedores compartilham os mesmos valores e constroem juntos uma economia do Reino.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ══════════════════════════════════════════════════
      S16 — PRIMEIRA FASE
@@ -2865,6 +2958,11 @@ makeObs(document.getElementById('s12'), 0.20, () => {
 makeObs(document.getElementById('s17'), 0.12, () => {
   document.querySelectorAll('#s17 .vision-row').forEach((row, i) =>
     setTimeout(() => row.classList.add('st-in'), i * 140));
+});
+
+// S14: cinematic logo reveal — fires once when section reaches 30% visibility
+makeObs(document.getElementById('s14'), 0.30, () => {
+  document.getElementById('s14').classList.add('revealed');
 });
 
 // S7: roda interativa
